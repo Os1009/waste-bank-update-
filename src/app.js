@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const path = require('path');
 const authRoutes = require('./routes/auth.routes');
+const offerRoutes = require('./routes/offer.routes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/offers', offerRoutes);
 
 app.use(
   '/uploads',
@@ -26,5 +28,7 @@ app.use(
 app.get('/', (req, res) => {
   res.send('Waste Bank API is running...');
 });
+
+
 
 module.exports = app;

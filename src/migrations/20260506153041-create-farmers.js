@@ -25,9 +25,23 @@ module.exports = {
   // },
 
 
+  // user_id: {
+  // type: Sequelize.UUID,
+  // primaryKey: true,
+
+  // references: {
+  //   model: 'users',
+  //   key: 'id'
+  // },
+
+
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// },
+
   user_id: {
   type: Sequelize.UUID,
-  primaryKey: true,
+  unique: true,
 
   references: {
     model: 'users',

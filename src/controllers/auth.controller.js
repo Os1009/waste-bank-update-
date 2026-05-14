@@ -4,7 +4,19 @@ exports.registerFarmer = async (req, res) => {
 
   try {
 
-    const result = await authService.registerFarmer(req.body);
+    const farmerData = {
+
+      ...req.body,
+
+      national_id_image:
+        req.files?.national_id_image?.[0]?.path || null,
+
+      proof_image:
+        req.files?.proof_image?.[0]?.path || null,
+
+    };
+
+    const result = await authService.registerFarmer(farmerData);
 
     res.status(201).json({
       success: true,
@@ -27,7 +39,16 @@ exports.registerFactory = async (req, res) => {
 
   try {
 
-    const result = await authService.registerFactory(req.body);
+    const factoryData = {
+
+      ...req.body,
+
+      factory_image:
+        req.files?.factory_image?.[0]?.path || null,
+
+    };
+
+    const result = await authService.registerFactory(factoryData);
 
     res.status(201).json({
       success: true,

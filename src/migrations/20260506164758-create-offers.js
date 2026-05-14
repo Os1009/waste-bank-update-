@@ -19,7 +19,12 @@ module.exports = {
       collection_location: Sequelize.STRING,
       description: Sequelize.TEXT,
       status: Sequelize.STRING,
-      created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+      created_at: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+
+      updated_at: {
+  type: Sequelize.DATE,
+  defaultValue: Sequelize.NOW
+}
     });
   },
   async down(queryInterface) {

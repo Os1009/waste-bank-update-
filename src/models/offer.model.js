@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
 
+      quantity_gauge: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
 
       cultivated_area: {
         type: DataTypes.STRING,
@@ -90,6 +94,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Offer.associate = (models) => {
+
+    Offer.hasMany(models.OfferImage, {
+  foreignKey: 'offer_id',
+  as: 'images',
+});
 
     Offer.belongsTo(models.Farmer, {
       foreignKey: 'farmer_id',
