@@ -1,9 +1,3 @@
-const {
-  Sale,
-  SaleItem,
-  Inventory,
-  sequelize
-} = require('../models');
 
 const {
   Sale,

@@ -2,6 +2,7 @@ const service = require('../services/shipment.service');
 
 exports.createShipment = async (req, res) => {
   try {
+    
     const result = await service.createShipment(req.body);
 
     res.status(201).json({
@@ -35,4 +36,29 @@ exports.updateShipmentStatus = async (req, res) => {
     success: true,
     data: result
   });
+};
+
+
+exports.getShipmentById = async (req, res) => {
+
+  try {
+
+    const result = await service.getShipmentById(
+      req.params.id
+    );
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+
+  } catch (error) {
+
+    res.status(404).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+ 
 };

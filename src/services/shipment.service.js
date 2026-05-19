@@ -44,3 +44,18 @@ exports.updateShipmentStatus = async (shipmentId, status) => {
 
   return shipment;
 };
+
+
+
+exports.getShipmentById = async (shipmentId) => {
+
+  const shipment = await Shipment.findByPk(shipmentId);
+
+  if (!shipment) {
+    throw new Error('Shipment not found');
+  }
+
+  return shipment;
+
+};
+ 

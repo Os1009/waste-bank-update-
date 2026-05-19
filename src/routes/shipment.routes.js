@@ -26,6 +26,15 @@ router.get(
   controller.getShipments
 );
 
+
+router.get(
+  '/:id',
+  auth,
+
+  controller.getShipmentById
+);
+
+
 router.patch(
   '/:id/status',
   auth,

@@ -36,7 +36,7 @@ exports.registerFarmer = async (req, res) => {
 };
 
 exports.registerFactory = async (req, res) => {
-
+console.log('Factory registration data:', req.body);
   try {
 
     const factoryData = {
