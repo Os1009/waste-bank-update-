@@ -1,6 +1,7 @@
 const {
   Inventory,
 } = require('../models');
+const AppError = require( '../utils/app-error');
 
 exports.getInventory =
   async () => {
@@ -28,8 +29,9 @@ exports.getInventoryItem =
 
     if (!item) {
 
-      throw new Error(
-        'Inventory item not found'
+      throw new AppError(
+        'Inventory item not found',
+        404
       );
 
     }
@@ -51,8 +53,9 @@ exports.updateInventory =
 
     if (!item) {
 
-      throw new Error(
-        'Inventory item not found'
+      throw new AppError(
+        'Inventory item not found',
+        404
       );
 
     }

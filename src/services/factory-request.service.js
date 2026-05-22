@@ -1,7 +1,7 @@
 const {
   FactoryRequest,
 } = require('../models');
-
+const AppError = require( '../utils/app-error');
 exports.createFactoryRequest =
   async (data) => {
 
@@ -69,15 +69,17 @@ exports.updateFactoryRequest =
       });
 
     if (!request) {
-      throw new Error(
-        'Factory request not found'
+      throw new AppError(
+        'Factory request not found',
+        404
       );
     }
 
     if (request.status !== 'open') {
 
-      throw new Error(
-        'Only open requests can be updated'
+      throw new AppError(
+        'Only open requests can be updated',
+        400
       );
 
     }
@@ -106,15 +108,17 @@ exports.cancelFactoryRequest =
       });
 
     if (!request) {
-      throw new Error(
-        'Factory request not found'
+      throw new AppError(
+        'Factory request not found',
+        404
       );
     }
 
      if (request.status !== 'open') {
 
-      throw new Error(
-        'Only open requests can be cancelled'
+      throw new AppError(
+        'Only open requests can be cancelled',
+        400
       );
     }
 

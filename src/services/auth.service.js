@@ -4,6 +4,8 @@ const { User, Farmer, Factory, sequelize } = require('../models');
 
 const { generateToken } = require('../utils/jwt');
 
+const AppError = require( '../utils/app-error');
+
 exports.registerFarmer = async (data) => {
 
   const transaction = await sequelize.transaction();
@@ -17,7 +19,7 @@ exports.registerFarmer = async (data) => {
     });
 
     if (existingUser) {
-      throw new Error('Phone already exists');
+      throw new AppError('Phone already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -99,7 +101,7 @@ exports.registerFactory = async (data) => {
     });
 
     if (existingUser) {
-      throw new Error('Phone already exists');
+      throw new AppError('Phone already exists', 400);
     }
 
     const existingFactory = await Factory.findOne({
@@ -109,7 +111,7 @@ exports.registerFactory = async (data) => {
     });
 
     if (existingFactory) {
-      throw new Error('Factory email already exists');
+      throw new AppError('Factory email already exists', 400);
     }
 
     const existingRegistrationNumber = await Factory.findOne({
@@ -120,8 +122,9 @@ exports.registerFactory = async (data) => {
     });
 
     if (existingRegistrationNumber) {
-      throw new Error(
-        'Industrial registration number already exists'
+      throw new AppError(
+        'Industrial registration number already exists',
+        400
       );
     }
 
@@ -197,7 +200,7 @@ exports.login = async (data) => {
   });
 
   if (!user) {
-    throw new Error('Invalid phone or password');
+    throw new AppError('Invalid phone or password', 400);
   }
 
   const isPasswordValid = await bcrypt.compare(
@@ -206,7 +209,7 @@ exports.login = async (data) => {
   );
 
   if (!isPasswordValid) {
-    throw new Error('Invalid phone or password');
+    throw new AppError('Invalid phone or password', 400);
   }
 
   const token = generateToken({

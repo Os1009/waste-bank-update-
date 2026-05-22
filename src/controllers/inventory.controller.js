@@ -1,10 +1,9 @@
 const service =
   require('../services/inventory.service');
+  const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.getInventory =
-  async (req, res) => {
+exports.getInventory = asyncHandler(async (req, res) => {
 
-    try {
 
       const result =
         await service.getInventory();
@@ -14,21 +13,11 @@ exports.getInventory =
         data: result,
       });
 
-    } catch (error) {
+}
+);
 
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+exports.getInventoryItem = asyncHandler(async (req, res) => {
 
-    }
-
-};
-
-exports.getInventoryItem =
-  async (req, res) => {
-
-    try {
 
       const result =
         await service.getInventoryItem(
@@ -40,21 +29,14 @@ exports.getInventoryItem =
         data: result,
       });
 
-    } catch (error) {
 
-      res.status(404).json({
-        success: false,
-        message: error.message,
-      });
 
-    }
+}
+);
 
-};
+exports.updateInventory = asyncHandler(async (req, res) => {
 
-exports.updateInventory =
-  async (req, res) => {
-
-    try {
+   
 
       const result =
         await service.updateInventory(
@@ -72,13 +54,5 @@ exports.updateInventory =
         data: result,
       });
 
-    } catch (error) {
-
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
-
-    }
-
-};
+}
+);

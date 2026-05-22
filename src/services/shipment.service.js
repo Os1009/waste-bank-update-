@@ -1,6 +1,7 @@
 const {
   Shipment
 } = require('../models');
+const AppError = require( '../utils/app-error');
 
 exports.createShipment = async (data) => {
   return await Shipment.create({
@@ -31,7 +32,7 @@ exports.updateShipmentStatus = async (shipmentId, status) => {
   const shipment = await Shipment.findByPk(shipmentId);
 
   if (!shipment) {
-    throw new Error('Shipment not found');
+    throw new AppError('Shipment not found', 404);
   }
 
   shipment.status = status;
@@ -52,7 +53,7 @@ exports.getShipmentById = async (shipmentId) => {
   const shipment = await Shipment.findByPk(shipmentId);
 
   if (!shipment) {
-    throw new Error('Shipment not found');
+    throw new AppError('Shipment not found', 404);
   }
 
   return shipment;

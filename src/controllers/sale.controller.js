@@ -1,22 +1,17 @@
 const service = require('../services/sale.service');
+const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.createSale = async (req, res) => {
-  try {
+exports.createSale = asyncHandler(async (req, res) => {
     const result = await service.createSale(req.body);
 
     res.status(201).json({
       success: true,
       data: result
     });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
 
-exports.getSales = async (req, res) => {
+});
+
+exports.getSales = asyncHandler(async (req, res) => {
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
 
@@ -28,18 +23,18 @@ exports.getSales = async (req, res) => {
     page,
     data: result.rows
   });
-};
+});
 
-exports.getFactorySales = async (req, res) => {
+exports.getFactorySales = asyncHandler(async (req, res) => {
   const result = await service.getFactorySales(req.user.id);
 
   res.json({
     success: true,
     data: result
   });
-};
+});
 
-exports.updateStatus = async (req, res) => {
+exports.updateStatus = asyncHandler(async (req, res) => {
   const result = await service.updateStatus(
     req.params.id,
     req.body.status
@@ -49,4 +44,4 @@ exports.updateStatus = async (req, res) => {
     success: true,
     data: result
   });
-};
+});

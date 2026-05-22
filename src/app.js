@@ -11,6 +11,8 @@ const purchaseRoutes = require('./routes/purchase.routes');
 const inventoryRoutes = require('./routes/inventory.routes');
 const saleRoutes = require('./routes/sale.routes');
 const shipmentRoutes = require('./routes/shipment.routes');
+const errorMiddleware = require('./middlewares/error.middleware');
+
 const app = express();
 
 // Middlewares
@@ -43,5 +45,7 @@ app.get('/', (req, res) => {
 });
 
 
+
+app.use(errorMiddleware);
 
 module.exports = app;

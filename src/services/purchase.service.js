@@ -4,6 +4,7 @@ const {
   Inventory,
   sequelize,
 } = require('../models');
+const AppError = require( '../utils/app-error');
 
 exports.createPurchase =
   async (data) => {
@@ -20,16 +21,18 @@ exports.createPurchase =
 
       if (!offer) {
 
-        throw new Error(
-          'Offer not found'
+        throw new AppError(
+          'Offer not found',
+          404
         );
 
       }
 
       if (offer.status !== 'approved') {
 
-        throw new Error(
-          'Only approved offers can be purchased'
+        throw new AppError(
+          'Only approved offers can be purchased',
+          400
         );
 
       }
@@ -170,8 +173,9 @@ exports.updatePurchaseStatus =
 
     if (!purchase) {
 
-      throw new Error(
-        'Purchase not found'
+      throw new AppError(
+        'Purchase not found',
+        404
       );
 
     }

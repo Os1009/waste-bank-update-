@@ -1,8 +1,9 @@
 const offerService = require('../services/offer.service');
+const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.createOffer = async (req, res) => {
 
-  try {
+exports.createOffer = asyncHandler(async (req, res) => {
+
 
     const imagePaths = req.files?.map(
       file => file.path
@@ -26,20 +27,12 @@ exports.createOffer = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
+}
+);
 
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+exports.updateOffer = asyncHandler(async (req, res) => {
 
-  }
 
-};
-
-exports.updateOffer = async (req, res) => {
-
-  try {
 
     const result = await offerService.updateOffer(
       req.params.id,
@@ -52,22 +45,12 @@ exports.updateOffer = async (req, res) => {
       message: 'Offer updated successfully',
       data: result,
     });
-
-  } catch (error) {
-
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);
 
 
-exports.getMyOffers = async (req, res) => {
+exports.getMyOffers = asyncHandler(async (req, res) => {
 
-  try {
 
     const result = await offerService.getMyOffers(
       req.user.id
@@ -78,21 +61,11 @@ exports.getMyOffers = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
+}
+);
 
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
+exports.deleteOffer = asyncHandler(async (req, res) => {
 
-  }
-
-};
-
-
-exports.deleteOffer = async (req, res) => {
-
-  try {
 
     await offerService.deleteOffer(
       req.params.id,
@@ -104,21 +77,13 @@ exports.deleteOffer = async (req, res) => {
       message: 'Offer deleted successfully',
     });
 
-  } catch (error) {
-
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);
 
 
-exports.getOfferById = async (req, res) => {
+exports.getOfferById = asyncHandler(async (req, res) => {
 
-  try {
+
 
     const result = await offerService.getOfferById(
       req.params.id
@@ -129,21 +94,13 @@ exports.getOfferById = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
-
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);
 
 
-exports.getApprovedOffers = async (req, res) => {
+exports.getApprovedOffers = asyncHandler(async (req, res) => {
 
-  try {
+
 
     const page = parseInt(req.query.page) || 1;
 
@@ -160,23 +117,14 @@ exports.getApprovedOffers = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
-
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);
 
 
 
+exports.approveOffer = asyncHandler(async (req, res) => {
 
-exports.approveOffer = async (req, res) => {
 
-  try {
 
     const result =
       await offerService.approveOffer(
@@ -189,21 +137,12 @@ exports.approveOffer = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
-
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);
 
 
-exports.rejectOffer = async (req, res) => {
+exports.rejectOffer = asyncHandler(async (req, res) => {
 
-  try {
 
     const result =
       await offerService.rejectOffer(
@@ -216,13 +155,5 @@ exports.rejectOffer = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
-
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
+}
+);

@@ -1,8 +1,6 @@
 const authService = require('../services/auth.service');
-
-exports.registerFarmer = async (req, res) => {
-
-  try {
+const asyncHandler = require('../middlewares/async-handler.middleware');
+exports.registerFarmer = asyncHandler(async (req, res) => {
 
     const farmerData = {
 
@@ -24,20 +22,11 @@ exports.registerFarmer = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
+} 
+);
 
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
-
-};
-
-exports.registerFactory = async (req, res) => {
+exports.registerFactory = asyncHandler(async (req, res) => {
 console.log('Factory registration data:', req.body);
-  try {
 
     const factoryData = {
 
@@ -56,20 +45,13 @@ console.log('Factory registration data:', req.body);
       data: result,
     });
 
-  } catch (error) {
 
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
 
-  }
+}
+);
 
-};
+exports.login = asyncHandler( async (req, res) => {
 
-exports.login = async (req, res) => {
-
-  try {
 
     const result = await authService.login(req.body);
 
@@ -79,13 +61,8 @@ exports.login = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
 
-    res.status(401).json({
-      success: false,
-      message: error.message,
-    });
 
-  }
+}
 
-};
+);

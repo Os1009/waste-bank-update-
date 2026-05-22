@@ -1,10 +1,10 @@
 const service =
   require('../services/purchase.service');
+  const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.createPurchase =
-  async (req, res) => {
+exports.createPurchase = asyncHandler(async (req, res) => {
 
-    try {
+
 
       const result =
         await service.createPurchase(
@@ -18,21 +18,10 @@ exports.createPurchase =
         data: result,
       });
 
-    } catch (error) {
+});
 
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+exports.getAllPurchases = asyncHandler(async (req, res) => {
 
-    }
-
-};
-
-exports.getAllPurchases =
-  async (req, res) => {
-
-    try {
 
       const result =
         await service.getAllPurchases();
@@ -42,21 +31,11 @@ exports.getAllPurchases =
         data: result,
       });
 
-    } catch (error) {
+});
 
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
+exports.getMyPurchases = asyncHandler(async (req, res) => {
 
-    }
 
-};
-
-exports.getMyPurchases =
-  async (req, res) => {
-
-    try {
 
       const result =
         await service.getMyPurchases(
@@ -68,21 +47,9 @@ exports.getMyPurchases =
         data: result,
       });
 
-    } catch (error) {
+});
 
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
-
-    }
-
-};
-
-exports.updatePurchaseStatus =
-  async (req, res) => {
-
-    try {
+exports.updatePurchaseStatus = asyncHandler(async (req, res) => {
 
       const result =
         await service.updatePurchaseStatus(
@@ -100,13 +67,4 @@ exports.updatePurchaseStatus =
         data: result,
       });
 
-    } catch (error) {
-
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
-
-    }
-
-};
+});

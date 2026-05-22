@@ -1,10 +1,9 @@
 const service =
   require('../services/factory-request.service');
+  const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.createFactoryRequest =
-  async (req, res) => {
+exports.createFactoryRequest = asyncHandler(async (req, res) => {
 
-    try {
 
       const result =
         await service.createFactoryRequest({
@@ -22,22 +21,15 @@ exports.createFactoryRequest =
         data: result,
       });
 
-    } catch (error) {
 
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
 
-    }
-
-};
+}
+);
 
 
 
-exports.getMyRequests = async (req, res) => {
+exports.getMyRequests = asyncHandler(async (req, res) => {
 
-  try {
 
     const result =
       await service.getMyRequests(
@@ -49,23 +41,15 @@ exports.getMyRequests = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
 
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
 
-  }
-
-};
+}
+);
 
 
 
-exports.updateFactoryRequest =
-  async (req, res) => {
+exports.updateFactoryRequest = asyncHandler(async (req, res) => {
 
-    try {
 
       const result =
         await service.updateFactoryRequest(
@@ -85,22 +69,13 @@ exports.updateFactoryRequest =
         data: result,
       });
 
-    } catch (error) {
-
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
-
-    }
-
-};
 
 
-exports.cancelFactoryRequest =
-  async (req, res) => {
+}
+);
 
-    try {
+
+exports.cancelFactoryRequest = asyncHandler(async (req, res) => {
 
       const result =
         await service.cancelFactoryRequest(
@@ -118,13 +93,5 @@ exports.cancelFactoryRequest =
         data: result,
       });
 
-    } catch (error) {
-
-      res.status(400).json({
-        success: false,
-        message: error.message,
-      });
-
-    }
-
-};
+}
+);

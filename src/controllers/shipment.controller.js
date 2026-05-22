@@ -1,7 +1,8 @@
 const service = require('../services/shipment.service');
+const asyncHandler = require('../middlewares/async-handler.middleware');
 
-exports.createShipment = async (req, res) => {
-  try {
+exports.createShipment = asyncHandler( async (req, res) => {
+
     
     const result = await service.createShipment(req.body);
 
@@ -9,24 +10,19 @@ exports.createShipment = async (req, res) => {
       success: true,
       data: result
     });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: error.message
-    });
-  }
-};
 
-exports.getShipments = async (req, res) => {
+});
+
+exports.getShipments = asyncHandler(async (req, res) => {
   const result = await service.getShipments();
 
   res.json({
     success: true,
     data: result
   });
-};
+});
 
-exports.updateShipmentStatus = async (req, res) => {
+exports.updateShipmentStatus = asyncHandler(async (req, res) => {
   const result = await service.updateShipmentStatus(
     req.params.id,
     req.body.status
@@ -36,12 +32,12 @@ exports.updateShipmentStatus = async (req, res) => {
     success: true,
     data: result
   });
-};
+});
 
 
-exports.getShipmentById = async (req, res) => {
+exports.getShipmentById = asyncHandler(async (req, res) => {
 
-  try {
+
 
     const result = await service.getShipmentById(
       req.params.id
@@ -52,13 +48,4 @@ exports.getShipmentById = async (req, res) => {
       data: result,
     });
 
-  } catch (error) {
-
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
-
-  }
- 
-};
+});

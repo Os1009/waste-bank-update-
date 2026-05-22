@@ -6,6 +6,7 @@ const {
   FactoryRequest,
   sequelize
 } = require('../models');
+const AppError = require( '../utils/app-error');
 
 exports.createSale = async (data) => {
   const transaction = await sequelize.transaction();
@@ -19,11 +20,11 @@ exports.createSale = async (data) => {
     );
 
     if (!request) {
-      throw new Error('Request not found');
+      throw new AppError('Request not found', 404);
     }
 
     if (request.status === 'cancelled') {
-      throw new Error('Request cancelled');
+      throw new AppError('Request cancelled', 400);
     }
 
     const sale = await Sale.create(
@@ -46,11 +47,11 @@ exports.createSale = async (data) => {
       );
 
       if (!inventory) {
-        throw new Error('Inventory not found');
+        throw new AppError('Inventory not found', 404);
       }
 
       if (inventory.quantity < item.quantity) {
-        throw new Error('Insufficient quantity');
+        throw new AppError('Insufficient quantity', 400);
       }
 
       inventory.quantity -= item.quantity;
@@ -134,17 +135,17 @@ exports.updateStatus = async (saleId, status) => {
   ];
 
   if (!allowed.includes(status)) {
-    throw new Error('Invalid status');
+    throw new AppError('Invalid status', 400);
   }
 
   const sale = await Sale.findByPk(saleId);
 
   if (!sale) {
-    throw new Error('Sale not found');
+    throw new AppError('Sale not found', 404);
   }
 
   if (sale.status === 'completed') {
-    throw new Error('Completed sale cannot be modified');
+    throw new AppError('Completed sale cannot be modified', 400);
   }
 
   sale.status = status;

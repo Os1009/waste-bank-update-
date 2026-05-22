@@ -1,4 +1,5 @@
 const { Offer, OfferImage, sequelize } = require('../models');
+const AppError = require( '../utils/app-error');
 
 exports.createOffer = async (data) => {
 
@@ -79,13 +80,14 @@ exports.updateOffer = async (
   });
 
   if (!offer) {
-    throw new Error('Offer not found');
+    throw new AppError('Offer not found', 404);
   }
 
   if (offer.status !== 'pending') {
 
-    throw new Error(
-      'Only pending offers can be updated'
+    throw new AppError(
+      'Only pending offers can be updated',
+      400
     );
 
   }
@@ -130,13 +132,14 @@ exports.deleteOffer = async (
   });
 
   if (!offer) {
-    throw new Error('Offer not found');
+    throw new AppError('Offer not found', 404);
   }
 
   if (offer.status !== 'pending') {
 
-    throw new Error(
-      'Only pending offers can be deleted'
+    throw new AppError(
+      'Only pending offers can be deleted',
+      400
     );
 
   }
@@ -160,7 +163,7 @@ exports.getOfferById = async (offerId) => {
   });
 
   if (!offer) {
-    throw new Error('Offer not found');
+    throw new AppError('Offer not found', 404);
   }
 
   return offer;
@@ -223,7 +226,7 @@ exports.approveOffer = async (offerId) => {
   const offer = await Offer.findByPk(offerId);
 
   if (!offer) {
-    throw new Error('Offer not found');
+    throw new AppError('Offer not found', 404);
   }
 
   offer.status = 'approved';
@@ -241,7 +244,7 @@ exports.rejectOffer = async (offerId) => {
   const offer = await Offer.findByPk(offerId);
 
   if (!offer) {
-    throw new Error('Offer not found');
+    throw new AppError('Offer not found', 404);
   }
 
   offer.status = 'rejected';
