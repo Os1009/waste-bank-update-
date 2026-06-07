@@ -23,13 +23,13 @@ exports.registerFarmer = async (data) => {
     }
 
 
-    const existingUserNID = await User.findOne({
+    const existingFarmerNID = await Farmer.findOne({
       where: {
         national_id: data.national_id,
       },
     });
 
-    if (existingUserNID) {
+    if (existingFarmerNID) {
       throw new AppError('National ID already exists', 400);
     }
 
