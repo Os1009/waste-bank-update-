@@ -22,6 +22,17 @@ exports.registerFarmer = async (data) => {
       throw new AppError('Phone already exists', 400);
     }
 
+
+    const existingUserNID = await User.findOne({
+      where: {
+        national_id: data.national_id,
+      },
+    });
+
+    if (existingUserNID) {
+      throw new AppError('National ID already exists', 400);
+    }
+
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     const user = await User.create(
